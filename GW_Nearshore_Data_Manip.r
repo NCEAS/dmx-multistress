@@ -350,6 +350,8 @@ BS_IA_PWS <- PerCovCalc(BS_IA_PWS1, "Bare_Sub_Mn_Per_Cov")    ;   BS_IA_PWS
 # Merge wtih the larger data frame
 blnk_8 <- merge(blnk_7, BS_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)
 blnk_8[45:90,]
+
+###########  Common Category level analysis
 #####
 # Anemone
 a_IA_PWS1 <- filter(IA_PWS, Common_Cat=="anemone")   # Filter out the species/entry of interest
@@ -461,13 +463,9 @@ blnk_8r[45:90,]
 #####
 # Sum the percent cover for all the invert and algae columns to see if they add to 100 percent!
 blnk_8r$Sum_Per_Cov <- rowSums(blnk_8r[, c(17:35)], na.rm = TRUE) ; blnk_8r[45:90,] 
+### WHY DO THESE ROWS NOT SUM TO 100% ?  Because there were two transects at each site!?!
 
-### WHY DO THESE ROWS NOT SUM TO 100% ????????????????????????????????????
-
-
-
-
-
+########## Species or Genus-level analysis
 #####
 # Fucus distichus
 Fd_IA_PWS1 <- filter(IA_PWS, Species_Name=="Fucus distichus")   # Filter out the species/entry of interest
@@ -490,8 +488,8 @@ blnk_11[45:90,]
 # Neorhodomela sp
 No_IA_PWS1 <- filter(IA_PWS, Species_Name=="Neorhodomela oregona", 
                              Species_Name=="Neorhodomela larix", 
-                             Species_Name== "Odonthalia / Neorhodomela sp.", 
-                             Species_Name== "Odonthalia floccosa")   # Filter out the species/entry of interest
+                             Species_Name=="Odonthalia / Neorhodomela sp.", 
+                             Species_Name=="Odonthalia floccosa")   # Filter out the species/entry of interest
 No_IA_PWS <- PerCovCalc(No_IA_PWS1, "Neo_sp_Mn_Per_Cov") ; No_IA_PWS  # call the function
 blnk_12 <- merge(blnk_11, No_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
 blnk_12[45:90,]
@@ -514,6 +512,21 @@ Am_IA_PWS <- PerCovCalc(Am_IA_PWS1, "Ala_marg_Mn_Per_Cov") ; Am_IA_PWS  # call t
 blnk_15 <- merge(blnk_14, Am_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
 blnk_15[45:90,]
 #####
+# Analipus japonicus
+Aj_IA_PWS1 <- filter(IA_PWS, Species_Name=="Analipus japonicus")   # Filter out the species/entry of interest
+Aj_IA_PWS <- PerCovCalc(Aj_IA_PWS1, "Ana_japo_Mn_Per_Cov") ; Aj_IA_PWS  # call the function
+blnk_16 <- merge(blnk_15, Aj_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_16[45:90,]
+#####
+# Anthopleura sp
+Ans_IA_PWS1 <- filter(IA_PWS, Species_Name=="Anthopleura elegantissima", 
+                              Species_Name=="Anthopleura xanthogrammica")   # Filter out the species/entry of interest
+Ans_IA_PWS <- PerCovCalc(Ans_IA_PWS1, "Anth_sp_Mn_Per_Cov") ; Ans_IA_PWS  # call the function
+blnk_17 <- merge(blnk_16, Ans_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_17[45:90,]
+#####
+# Antithamnionella pacifica
+
 
 
 
