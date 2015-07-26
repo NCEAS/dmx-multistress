@@ -661,9 +661,194 @@ blnk_39[45:90,]
 #####
 # Endocladia muricata
 Em_IA_PWS1 <- filter(IA_PWS, Species_Name=="Endocladia muricata")   # Filter out the species/entry of interest
-Em_IA_PWS <- PerCovCalc(Em_IA_PWS1, "Endo_corall_Mn_Per_Cov") ; eca_IA_PWS  # call the function
-blnk_39 <- merge(blnk_38, eca_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
-blnk_39[45:90,]
+Em_IA_PWS <- PerCovCalc(Em_IA_PWS1, "Endo_muri_Mn_Per_Cov") ; Em_IA_PWS  # call the function
+blnk_40 <- merge(blnk_39, Em_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_40[45:90,]
+#####
+# Epiactis sp.
+Epi_IA_PWS1 <- filter(IA_PWS, Species_Name=="Epiactis sp.")   # Filter out the species/entry of interest
+Epi_IA_PWS <- PerCovCalc(Em_IA_PWS1, "Epi_sp_Mn_Per_Cov") ; Epi_IA_PWS  # call the function
+blnk_41 <- merge(blnk_40, Epi_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_41[45:90,]
+#####
+# Eudesme virescens
+Ev_IA_PWS1 <- filter(IA_PWS, Species_Name=="Eudesme virescens")   # Filter out the species/entry of interest
+Ev_IA_PWS <- PerCovCalc(Ev_IA_PWS1, "Eud_vire_Mn_Per_Cov") ; Ev_IA_PWS  # call the function
+blnk_42 <- merge(blnk_41, Ev_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_42[45:90,] 
+#####
+# Eurystomella bilabiata
+Eb_IA_PWS1 <- filter(IA_PWS, Species_Name=="Eurystomella bilabiata")   # Filter out the species/entry of interest
+Eb_IA_PWS <- PerCovCalc(Eb_IA_PWS1, "Eury_bila_Mn_Per_Cov") ; Eb_IA_PWS  # call the function
+blnk_43 <- merge(blnk_42, Eb_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_43[45:90,] 
+#####
+# foliose bryozoan
+fb_IA_PWS1 <- filter(IA_PWS, Species_Name=="foliose bryozoan")   # Filter out the species/entry of interest
+fb_IA_PWS <- PerCovCalc(fb_IA_PWS1, "fol_bryz_Mn_Per_Cov") ; fb_IA_PWS  # call the function
+blnk_44 <- merge(blnk_43, fb_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_44[45:90,] 
+#####
+# foliose coralline algae
+fca_IA_PWS1 <- filter(IA_PWS, Species_Name=="foliose coralline algae")   # Filter out the species/entry of interest
+fca_IA_PWS <- PerCovCalc(fca_IA_PWS1, "fol_cor_alg_Mn_Per_Cov") ; fca_IA_PWS  # call the function
+blnk_45 <- merge(blnk_44, fca_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_45[45:90,] 
+#####
+# Gloiopeltis furcata
+Gf_IA_PWS1 <- filter(IA_PWS, Species_Name=="Gloiopeltis furcata")   # Filter out the species/entry of interest
+Gf_IA_PWS <- PerCovCalc(Gf_IA_PWS1, "Glo_furc_Mn_Per_Cov") ; Gf_IA_PWS  # call the function
+blnk_46 <- merge(blnk_45, Gf_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_46[45:90,]
+#####
+# Gracilaria pacifica
+Gp_IA_PWS1 <- filter(IA_PWS, Species_Name=="Gracilaria pacifica")   # Filter out the species/entry of interest
+Gp_IA_PWS <- PerCovCalc(Gp_IA_PWS1, "Grac_pac_Mn_Per_Cov") ; Gp_IA_PWS  # call the function
+blnk_47 <- merge(blnk_46, Gp_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_47[45:90,]
+#####
+# Hiatella arctica
+Ha_IA_PWS1 <- filter(IA_PWS, Species_Name=="Hiatella arctica")   # Filter out the species/entry of interest
+Ha_IA_PWS <- PerCovCalc(Ha_IA_PWS1, "Hia_arct_Mn_Per_Cov") ; Ha_IA_PWS  # call the function
+blnk_48 <- merge(blnk_47, Ha_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_48[45:90,]
+#####
+# Hildenbrandia sp.
+Hsp_IA_PWS1 <- filter(IA_PWS, Species_Name=="Hildenbrandia sp.")   # Filter out the species/entry of interest
+Hsp_IA_PWS <- PerCovCalc(Hsp_IA_PWS1, "Hild_sp_Mn_Per_Cov") ; Hsp_IA_PWS  # call the function
+blnk_49 <- merge(blnk_48, Hsp_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_49[45:90,]
+#####
+# Leathesia marina
+Lm_IA_PWS1 <- filter(IA_PWS, Species_Name=="Leathesia marina")   # Filter out the species/entry of interest
+Lm_IA_PWS <- PerCovCalc(Lm_IA_PWS1, "Lea_mar_Mn_Per_Cov") ; Lm_IA_PWS  # call the function
+blnk_50 <- merge(blnk_49, Lm_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_50[45:90,]
+#####
+# Mastocarpus sp.
+Msp_IA_PWS1 <- filter(IA_PWS, Species_Name=="Mastocarpus sp.")   # Filter out the species/entry of interest
+Msp_IA_PWS <- PerCovCalc(Msp_IA_PWS1, "Masto_sp_Mn_Per_Cov") ; Msp_IA_PWS  # call the function
+blnk_51 <- merge(blnk_50, Msp_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_51[45:90,]
+#####
+# Mazzaella sp.
+Mz_sp <- c("Mazzaella parksii","Mazzaella phyllocarpa","Mazzaella sp.")
+Mzs_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Mz_sp)   # Filter out the species/entry of interest
+Mzs_IA_PWS <- PerCovCalc(Mzs_IA_PWS1, "Mazz_sp_sp_Mn_Per_Cov") ; Mzs_IA_PWS  # call the function
+blnk_52 <- merge(blnk_51, Mzs_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_52[45:90,]
+#####
+# Melanosiphon / Scytosiphon sp.
+MS_sp <- c("Melanosiphon / Scytosiphon sp.","Melanosiphon intestinalis","Scytosiphon lomentaria")
+MS_IA_PWS1 <- filter(IA_PWS, Species_Name %in% MS_sp)   # Filter out the species/entry of interest
+MS_IA_PWS <- PerCovCalc(MS_IA_PWS1, "Mel_Scyt_sp_Mn_Per_Cov") ; MS_IA_PWS  # call the function
+blnk_53 <- merge(blnk_52, MS_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_53[45:90,]
+#####
+# Metridium senile
+Met_IA_PWS1 <- filter(IA_PWS, Species_Name=="Metridium senile")   # Filter out the species/entry of interest
+Met_IA_PWS <- PerCovCalc(Met_IA_PWS1, "Met_sen_Mn_Per_Cov") ; Met_IA_PWS  # call the function
+blnk_54 <- merge(blnk_53, Met_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_54[45:90,]
+#####
+# Microcladia borealis
+Mic_IA_PWS1 <- filter(IA_PWS, Species_Name=="Microcladia borealis")   # Filter out the species/entry of interest
+Mic_IA_PWS <- PerCovCalc(Mic_IA_PWS1, "Mic_bore_Mn_Per_Cov") ; Mic_IA_PWS  # call the function
+blnk_55 <- merge(blnk_54, Mic_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_55[45:90,]
+#####
+# Modiolus modiolus
+Mod_IA_PWS1 <- filter(IA_PWS, Species_Name=="Modiolus modiolus")   # Filter out the species/entry of interest
+Mod_IA_PWS <- PerCovCalc(Mod_IA_PWS1, "Mod_mod_Mn_Per_Cov") ; Mod_IA_PWS  # call the function
+blnk_56 <- merge(blnk_55, Mod_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_56[45:90,]
+#####
+# Musculus sp
+Mus_IA_PWS1 <- filter(IA_PWS, Species_Name=="Musculus sp")   # Filter out the species/entry of interest
+Mus_IA_PWS <- PerCovCalc(Mus_IA_PWS1, "Mus_sp_Mn_Per_Cov") ; Mus_IA_PWS  # call the function
+blnk_57 <- merge(blnk_56, Mus_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_57[45:90,]
+######
+# Mya truncata
+MYA_IA_PWS1 <- filter(IA_PWS, Species_Name=="Mya truncata")   # Filter out the species/entry of interest
+MYA_IA_PWS <- PerCovCalc(MYA_IA_PWS1, "Mya_trun_Mn_Per_Cov") ; MYA_IA_PWS  # call the function
+blnk_58 <- merge(blnk_57, MYA_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_58[45:90,]
+#####
+# Mytilus trossulus
+MYt_IA_PWS1 <- filter(IA_PWS, Species_Name=="Mytilus trossulus")   # Filter out the species/entry of interest
+MYt_IA_PWS <- PerCovCalc(MYt_IA_PWS1, "Myt_tros_Mn_Per_Cov") ; MYt_IA_PWS  # call the function
+blnk_59 <- merge(blnk_58, MYt_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_59[45:90,]
+#####
+# Nemalion elminthoides
+Ne_IA_PWS1 <- filter(IA_PWS, Species_Name=="Nemalion elminthoides")   # Filter out the species/entry of interest
+Ne_IA_PWS <- PerCovCalc(Ne_IA_PWS1, "Nem_elmi_Mn_Per_Cov") ; Ne_IA_PWS  # call the function
+blnk_60 <- merge(blnk_59, Ne_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_60[45:90,]
+#####
+# Neoptilota / Ptilota sp.
+NP_IA_PWS1 <- filter(IA_PWS, Species_Name=="Neoptilota / Ptilota sp.")   # Filter out the species/entry of interest
+NP_IA_PWS <- PerCovCalc(NP_IA_PWS1, "Neo_Ptil_sp_Mn_Per_Cov") ; NP_IA_PWS  # call the function
+blnk_61 <- merge(blnk_60, NP_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_61[45:90,]
+#####
+# non-coralline algal crust
+nac_IA_PWS1 <- filter(IA_PWS, Species_Name=="non-coralline algal crust")   # Filter out the species/entry of interest
+nac_IA_PWS <- PerCovCalc(nac_IA_PWS1, "nonc_alg_crust_Mn_Per_Cov") ; nac_IA_PWS  # call the function
+blnk_62 <- merge(blnk_61, nac_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_62[45:90,]
+#####
+# Palmaria sp.
+Ps_sp <- c("Palmaria callophylloides","Palmaria hecatensis","Palmaria hecatensis/mollis",
+           "Palmaria mollis","Palmaria sp.")
+Ps_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Ps_sp)   # Filter out the species/entry of interest
+Ps_IA_PWS <- PerCovCalc(Ps_IA_PWS1, "Pal_sp_Mn_Per_Cov") ; Ps_IA_PWS  # call the function
+blnk_63 <- merge(blnk_62, Ps_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_63[45:90,]
+#####
+# Petalonia fascia
+Pet_IA_PWS1 <- filter(IA_PWS, Species_Name=="Petalonia fascia")   # Filter out the species/entry of interest
+Pet_IA_PWS <- PerCovCalc(Pet_IA_PWS1, "Pet_fasc_crust_Mn_Per_Cov") ; Pet_IA_PWS  # call the function
+blnk_64 <- merge(blnk_63, Pet_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_64[45:90,]
+#####
+# Phycodrys / Tokidadendron sp.
+Phy_sp <- c("Phycodrys / Tokidadendron sp.","Phycodrys fimbriata","Tokidadendron bullatum")
+Ps_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Phy_sp)   # Filter out the species/entry of interest
+Ps_IA_PWS <- PerCovCalc(Ps_IA_PWS1, "Pal_sp_Mn_Per_Cov") ; Ps_IA_PWS  # call the function
+blnk_63 <- merge(blnk_62, Ps_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_63[45:90,]
+#####
+# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################################################
+#########################################################
+############################################################
+# DO I NEED TO CALCULATE PERCENT COVER BY EACH ELEVATION SEPERATELY, AND THEN AVERAGE OVER THE
+# TWO ELEVATIONS TO GET PERCENT COVER PER SITE??????????  MUST CHECK THE SOP !!!!!!!!!!!!!!!!!
+#########################################################
+###########################################################
+############################################################
+
+
+
+
 
 
 
