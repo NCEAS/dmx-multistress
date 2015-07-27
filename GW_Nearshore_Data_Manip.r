@@ -815,16 +815,147 @@ blnk_64[45:90,]
 #####
 # Phycodrys / Tokidadendron sp.
 Phy_sp <- c("Phycodrys / Tokidadendron sp.","Phycodrys fimbriata","Tokidadendron bullatum")
-Ps_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Phy_sp)   # Filter out the species/entry of interest
-Ps_IA_PWS <- PerCovCalc(Ps_IA_PWS1, "Pal_sp_Mn_Per_Cov") ; Ps_IA_PWS  # call the function
-blnk_63 <- merge(blnk_62, Ps_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
-blnk_63[45:90,]
+Phy_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Phy_sp)   # Filter out the species/entry of interest
+Phy_IA_PWS <- PerCovCalc(Phy_IA_PWS1, "Phy_Tok_sp_Mn_Per_Cov") ; Phy_IA_PWS  # call the function
+blnk_65 <- merge(blnk_64, Phy_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_65[45:90,]
 #####
-# 
-
-
-
-
+# Pleonosporium vancouverianum
+Ple_IA_PWS1 <- filter(IA_PWS, Species_Name=="Pleonosporium vancouverianum")   # Filter out the species/entry of interest
+Ple_IA_PWS <- PerCovCalc(Ple_IA_PWS1, "Ple_vanc_Mn_Per_Cov") ; Ple_IA_PWS  # call the function
+blnk_66 <- merge(blnk_65, Ple_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_66[45:90,]
+#####
+# Plocamium pacificum
+Plp_IA_PWS1 <- filter(IA_PWS, Species_Name=="Plocamium pacificum")   # Filter out the species/entry of interest
+Plp_IA_PWS <- PerCovCalc(Plp_IA_PWS1, "Plo_pac_Mn_Per_Cov") ; Plp_IA_PWS  # call the function
+blnk_67 <- merge(blnk_66, Plp_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_67[45:90,]
+#####
+# Pododesmus macroschisma
+Pm_IA_PWS1 <- filter(IA_PWS, Species_Name=="Pododesmus macroschisma")   # Filter out the species/entry of interest
+Pm_IA_PWS <- PerCovCalc(Pm_IA_PWS1, "Pod_mac_Mn_Per_Cov") ; Pm_IA_PWS  # call the function
+blnk_68 <- merge(blnk_67, Pm_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_68[45:90,]
+#####
+# Pterosiphonia / Polysiphonia sp.
+Pte_sp <- c("Polysiphonia sp.","Pterosiphonia / Polysiphonia sp.","Pterosiphonia bipinnata")
+Pte_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Pte_sp)   # Filter out the species/entry of interest
+Pte_IA_PWS <- PerCovCalc(Pte_IA_PWS1, "Pte_Poly_sp_Mn_Per_Cov") ; Pte_IA_PWS  # call the function
+blnk_69 <- merge(blnk_68, Pte_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_69[45:90,]
+#####
+# Ptilota sp.
+Pts_IA_PWS1 <- filter(IA_PWS, Species_Name=="Ptilota sp.")   # Filter out the species/entry of interest
+Pts_IA_PWS <- PerCovCalc(Pts_IA_PWS1, "Ptil_sp_Mn_Per_Cov") ; Pts_IA_PWS  # call the function
+blnk_70 <- merge(blnk_69, Pts_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_70[45:90,]
+#####
+# Ralfsia sp.
+Rlf_sp <- c("Ralfsia sp.","Ralfsia fungiformis")
+Rlf_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Rlf_sp)   # Filter out the species/entry of interest
+Rlf_IA_PWS <- PerCovCalc(Rlf_IA_PWS1, "Ralf_sp_Mn_Per_Cov") ; Rlf_IA_PWS  # call the function
+blnk_71 <- merge(blnk_70, Rlf_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_71[45:90,]
+#####
+# Rhodochorton purpureum
+Rho_IA_PWS1 <- filter(IA_PWS, Species_Name=="Rhodochorton purpureum")   # Filter out the species/entry of interest
+Rho_IA_PWS <- PerCovCalc(Rho_IA_PWS1, "Rho_purp_Mn_Per_Cov") ; Rho_IA_PWS  # call the function
+blnk_72 <- merge(blnk_71, Rho_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_72[45:90,]
+#####
+# Saccharina sp.
+Sacc_sp <- c("Saccharina latissima","Saccharina sessilis")
+Sacc_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Sacc_sp)   # Filter out the species/entry of interest
+Sacc_IA_PWS <- PerCovCalc(Sacc_IA_PWS1, "Sacc_sp_Mn_Per_Cov") ; Sacc_IA_PWS  # call the function
+blnk_73 <- merge(blnk_72, Sacc_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_73[45:90,]
+#####
+# Soranthera ulvoidea
+Sor_IA_PWS1 <- filter(IA_PWS, Species_Name=="Soranthera ulvoidea")   # Filter out the species/entry of interest
+Sor_IA_PWS <- PerCovCalc(Sor_IA_PWS1, "Sor_ulv_Mn_Per_Cov") ; Sor_IA_PWS  # call the function
+blnk_74 <- merge(blnk_73, Sor_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_74[45:90,]
+#####
+# spirorbidae
+spi_IA_PWS1 <- filter(IA_PWS, Species_Name=="spirorbidae")   # Filter out the species/entry of interest
+spi_IA_PWS <- PerCovCalc(spi_IA_PWS1, "spiror_Mn_Per_Cov") ; spi_IA_PWS  # call the function
+blnk_75 <- merge(blnk_74, spi_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_75[45:90,]
+#####
+#  Stomachetosella cruenta
+Sto_IA_PWS1 <- filter(IA_PWS, Species_Name=="Stomachetosella cruenta")   # Filter out the species/entry of interest
+Sto_IA_PWS <- PerCovCalc(Sto_IA_PWS1, "Sto_crue_Mn_Per_Cov") ; Sto_IA_PWS  # call the function
+blnk_76 <- merge(blnk_75, Sto_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_76[45:90,]
+#####
+# Ulothrix flacca
+Ulo_IA_PWS1 <- filter(IA_PWS, Species_Name=="Ulothrix flacca")   # Filter out the species/entry of interest
+Ulo_IA_PWS <- PerCovCalc(Ulo_IA_PWS1, "Ulo_flac_Mn_Per_Cov") ; Ulo_IA_PWS  # call the function
+blnk_77 <- merge(blnk_76, Ulo_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_77[45:90,]
+#####
+# Ulva / Monostroma sp.
+Ulv_sp <- c("Ulva / Monostroma sp.","Ulva sp.")
+Ulv_IA_PWS1 <- filter(IA_PWS, Species_Name %in% Ulv_sp)   # Filter out the species/entry of interest
+Ulv_IA_PWS <- PerCovCalc(Ulv_IA_PWS1, "Ulv_Mono_sp_Mn_Per_Cov") ; Ulv_IA_PWS  # call the function
+blnk_78 <- merge(blnk_77, Ulv_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_78[45:90,]
+#####
+# Urticina crassicornis
+Urt_IA_PWS1 <- filter(IA_PWS, Species_Name=="Urticina crassicornis")   # Filter out the species/entry of interest
+Urt_IA_PWS <- PerCovCalc(Urt_IA_PWS1, "Urt_crass_Mn_Per_Cov") ; Urt_IA_PWS  # call the function
+blnk_79 <- merge(blnk_78, Urt_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_79[45:90,]
+#####
+# unidentified anemone
+ua_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified anemone")   # Filter out the species/entry of interest
+ua_IA_PWS <- PerCovCalc(ua_IA_PWS1, "unid_anem_Mn_Per_Cov") ; ua_IA_PWS  # call the function
+blnk_80 <- merge(blnk_79, ua_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_80[45:90,]
+#####
+# unidentified brown algae
+uba_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified brown algae")   # Filter out the species/entry of interest
+uba_IA_PWS <- PerCovCalc(uba_IA_PWS1, "unid_brn_alg_Mn_Per_Cov") ; uba_IA_PWS  # call the function
+blnk_81 <- merge(blnk_80, uba_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_81[45:90,]
+#####
+# unidentified filamentous red algae
+ufra_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified filamentous red algae")   # Filter out the species/entry of interest
+ufra_IA_PWS <- PerCovCalc(ufra_IA_PWS1, "unid_fil_red_alg_Mn_Per_Cov") ; ufra_IA_PWS  # call the function
+blnk_82 <- merge(blnk_81, ufra_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_82[45:90,]
+#####
+# unidentified green algae
+uga_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified green algae")   # Filter out the species/entry of interest
+uga_IA_PWS <- PerCovCalc(uga_IA_PWS1, "unid_grn_alg_Mn_Per_Cov") ; uga_IA_PWS  # call the function
+blnk_83 <- merge(blnk_82, uga_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_83[45:90,]
+#####
+# unidentified hydroid
+uh_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified hydroid")   # Filter out the species/entry of interest
+uh_IA_PWS <- PerCovCalc(uh_IA_PWS1, "unid_hydroid_Mn_Per_Cov") ; uh_IA_PWS  # call the function
+blnk_84 <- merge(blnk_83, uh_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_84[45:90,]
+#####
+# unidentified sponge
+sp_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified sponge")   # Filter out the species/entry of interest
+sp_IA_PWS <- PerCovCalc(sp_IA_PWS1, "unid_sponge_Mn_Per_Cov") ; sp_IA_PWS  # call the function
+blnk_85 <- merge(blnk_84, sp_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_85[45:90,]
+#####
+# unidentified tunicate
+tun_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified tunicate")   # Filter out the species/entry of interest
+tun_IA_PWS <- PerCovCalc(tun_IA_PWS1, "unid_tunic_Mn_Per_Cov") ; tun_IA_PWS  # call the function
+blnk_86 <- merge(blnk_85, tun_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_86[45:90,]
+#####
+# unidentified worm
+wm_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified worm")   # Filter out the species/entry of interest
+wm_IA_PWS <- PerCovCalc(wm_IA_PWS1, "unid_worm_Mn_Per_Cov") ; wm_IA_PWS  # call the function
+blnk_87 <- merge(blnk_86, wm_IA_PWS, by=c("Site_Name","Sample_Year"), all=TRUE)  # Merge wtih the larger data frame
+blnk_87[45:90,]
+#####
 
 
 
