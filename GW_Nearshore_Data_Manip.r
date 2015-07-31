@@ -310,7 +310,7 @@ head(IA_PWS) ; IA_PWS[45:90,]
 PerCovCalc <- function(df, new_column_name) { 
               df %>%
               count(Site_Code, Site_Name, Sample_Year, Elevation_Position, Quadrat_Num) %>%
-              mutate(Per_Cov = (n/25)*100) %>%   # calculates the percent cover of bare substrate per quadrat
+              mutate(Per_Cov = (n/25)*100) %>%   # calculates the percent cover per quadrat
               group_by(Site_Name, Sample_Year) %>%
               summarise_(.dots = setNames(list(~mean(Per_Cov)), new_column_name)) %>%
               ungroup()
@@ -756,7 +756,7 @@ varnames <- list(Mus_PWS_s,Mus_PWS_a,Limd_PWS_a,Lims_PWS,Wlk_PWS,SS_PWS,OyC_PWS,
                  Ulv_IA_PWS,Urt_IA_PWS,ua_IA_PWS,uba_IA_PWS,ufra_IA_PWS,uga_IA_PWS,uh_IA_PWS,
                  sp_IA_PWS,tun_IA_PWS,wm_IA_PWS)
 
-blnk_full<-blnk # must initialzie the final blank dataset first
+blnk_full<-blnk # must initialzie the final blank dataframe first
 ###
 for(i in 1:length(varnames)){ 
     df <- varnames[i]
@@ -764,42 +764,8 @@ for(i in 1:length(varnames)){
     }
 ###
 blnk_full[1:35,]
+#write.csv(blnk_full, "C:/Users/rblake/Desktop/blnk_full.csv", row.names=F)
 ##########
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-######################################################
-#########################################################
-############################################################
-# DO I NEED TO CALCULATE PERCENT COVER BY EACH ELEVATION SEPERATELY, AND THEN AVERAGE OVER THE
-# TWO ELEVATIONS TO GET PERCENT COVER PER SITE??????????  MUST CHECK THE SOP !!!!!!!!!!!!!!!!!
-#########################################################
-###########################################################
-############################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ##########################################
 # Substrate
