@@ -24,7 +24,7 @@ library(dplyr)
 ###################################
 # Get data from Gulf Watch portal #
 ###################################
-# Mussels - Getting data from Gulf of Alaska AOOS Axiom portal
+# Mussels - Getting 2008-2012 data from Gulf of Alaska AOOS Axiom portal
 URL_M <- "https://workspace.aoos.org/published/file/52265bf0e4b0f364fbbb22b5/NearshoreBenthicSystemsInGOA_BenthicMusselData_2008_2012.csv"
 MGet <- GET(URL_M)
 Mus1 <- content(MGet, as='text')
@@ -35,7 +35,7 @@ Mus$Area.sampled..m2. <- as.numeric(as.character(Mus$Area.sampled..m2.))  # conv
 Mus$Size..mm. <- as.numeric(as.character(Mus$Size..mm.))                  # convert from factor to numeric
 head(Mus) ; str(Mus)
 
-Mus_PWS <- Mus %>%
+Mus_12_PWS <- Mus %>%
            filter(Sitename %in% PWS_Sites) %>%  # extract PWS samples
            select(-X, -X.1) %>%                # remove blank columns
            filter(!Area.sampled..m2. == ".") %>%  # remove invisible "." 
@@ -43,7 +43,72 @@ Mus_PWS <- Mus %>%
            rename(Sample_Year=Sampling.Date, Quad_Num=Quad, AreaSampled_m2=Area.sampled..m2.,
                   Size_mm=Size..mm., Site_Name=Sitename)  %>%
            arrange(Site_Name, Sample_Year, Quad_Num)
-head(Mus_PWS)
+head(Mus_12_PWS)
+
+# 2014 Mussel Data
+URL_M2 <- "https://workspace.aoos.org/published/file/ed831409-9b1d-4292-b943-01075ca35ae6/NearshoreBenthicSystemsInGOA_SOP09_Mussel_2014MusselsGreaterThan20mm_Data_20150108.csv"
+M2Get <- GET(URL_M2)
+Mus2c <- content(M2Get, as='text')
+Mus2 <- read.csv(file=textConnection(Mus2c))
+head(Mus2) ; str(Mus2)
+# Cleaning mussel numbers
+Mus2a <- Mus2 %>%
+         filter(Region =="PWS") %>% 
+         rename(Size_mm=size, vert_tx_num=vert.tx..)  %>%
+         mutate(Site_Name = ifelse((Site=="Galena"),'Galena Bay',  # must rename Sites to be uniform before anything can be done
+                            ifelse((Site=="Fidalgo"),'Port Fidalgo',
+                            ifelse((Site=="Olsen"),'Olsen Bay',
+                            ifelse((Site=="Simpson"),'Simpson Bay',
+                            ifelse((Site=="Observation"),'Observation Island',
+                            ifelse((Site=="Hogan"),'Hogan Bay',
+                            ifelse((Site=="Iktua"),'Iktua Bay',
+                            ifelse((Site=="Whale"),'Whale Bay',
+                            ifelse((Site=="Johnson"),'Johnson Bay',
+                            ifelse((Site=="Herring"),'Herring Bay',""))))))))))
+                     )  
+#
+URL_Sinfo <- "https://workspace.aoos.org/published/file/76f67c6c-a84b-4110-9db3-b7c45e4be754/NearshoreBenthicSystemsInGOA_SOP09_2014MusselSiteLayout_Data_20150108.csv"
+SinfoGet <- GET(URL_Sinfo)
+Sinfo1 <- content(SinfoGet, as='text')
+Sinfo <- read.csv(file=textConnection(Sinfo1))
+head(Sinfo) ; str(Sinfo)
+# Cleaning Site info
+Sinfo2 <- Sinfo %>%
+          filter(Region =="PWS") %>% 
+          rename(AreaSampled_m2=area.of.quad..m2., vert_tx_num=vertical.transect..)  %>%
+          mutate(Site_Name = ifelse((Site=="Galena"),'Galena Bay',  # must rename Sites to be uniform before anything can be done
+                             ifelse((Site=="Fidalgo"),'Port Fidalgo',
+                             ifelse((Site=="Olsen"),'Olsen Bay',
+                             ifelse((Site=="Simpson"),'Simpson Bay',
+                             ifelse((Site=="Observation"),'Observation Island',
+                             ifelse((Site=="Hogan Bay"),'Hogan Bay',
+                             ifelse((Site=="Iktua"),'Iktua Bay',
+                             ifelse((Site=="Whale Bay"),'Whale Bay',
+                             ifelse((Site=="Johnson Bay"),'Johnson Bay',
+                             ifelse((Site=="Herring Bay"),'Herring Bay',""))))))))))
+                      )
+#
+# put these two datasheets together
+Mus14 <- merge(Mus2a[,-c(3,4)], Sinfo2[,c(1:2,5,10,18,22)], 
+               by=c("Region","Block","Site_Name","Sampling.Date","vert_tx_num"), all=TRUE)
+head(Mus14)
+# Cleaning combined datasheets
+MYMD <- strsplit(as.character(Mus14$Sampling.Date), split="/") # split the Sample_Date column to extract year
+Mus14$Sample_Year <- sapply(MYMD, function(x) x[3]) # create Sample Year column
+Mus14_2 <- Mus14 %>%
+           filter(!vert_tx_num == ".")  # remove invisible "." 
+Mus14_PWS <- Mus14_2[,-c(4)]
+head(Mus14_PWS)
+###
+### add rows from 2014 to dataframe for 2010-2012
+names(Mus14_PWS)[names(Mus14_PWS)=="vert_tx_num"] <- "Quad_Num"# need to rename "vert_tx_num" to match "Quad_Num" column
+Mus_PWS <- rbind(Mus_12_PWS[,-c(3)], Mus14_PWS)
+Mus_PWS$Sample_Year <- as.numeric(Mus_PWS$Sample_Year)  # convert numbers from characters to numbers
+Mus_PWS$Quad_Num <- as.numeric(Mus_PWS$Quad_Num)
+Mus_PWS$AreaSampled_m2 <- as.numeric(Mus_PWS$AreaSampled_m2)
+Mus_PWS$Size_mm <- as.numeric(Mus_PWS$Size_mm)
+head(Mus_PWS) ; tail(Mus_PWS)
+
 # Standardize to number per m2
 Mus_PWS_s <- Mus_PWS %>%
              count(Site_Name, Sample_Year, Quad_Num, AreaSampled_m2) %>%
@@ -56,48 +121,8 @@ Mus_PWS_a <- Mus_PWS %>%
              group_by(Site_Name, Sample_Year) %>%  # group by sites and years
              summarize(Mus_Mn_Size_mm=mean(Size_mm))  # take the mean size
 head(Mus_PWS_a)
-# 2014 Mussel Data
-#URL_M2 <- "https://workspace.aoos.org/published/file/ed831409-9b1d-4292-b943-01075ca35ae6/NearshoreBenthicSystemsInGOA_SOP09_Mussel_2014MusselsGreaterThan20mm_Data_20150108.csv"
-#M2Get <- GET(URL_M2)
-#Mus2c <- content(M2Get, as='text')
-#Mus2 <- read.csv(file=textConnection(Mus2c))
-#head(Mus2) ; str(Mus2)
-#
-#URL_Sinfo <- "https://workspace.aoos.org/published/file/76f67c6c-a84b-4110-9db3-b7c45e4be754/NearshoreBenthicSystemsInGOA_SOP09_2014MusselSiteLayout_Data_20150108.csv"
-#SinfoGet <- GET(URL_Sinfo)
-#Sinfo1 <- content(SinfoGet, as='text')
-#Sinfo <- read.csv(file=textConnection(Sinfo1))
-#head(Sinfo) ; str(Sinfo)
-# put these two datasheets together
-#names(Mus2)[names(Mus2)=="vert.tx.."] <- "vert_tx_num"# rename column
-#names(Sinfo)[names(Sinfo)=="vertical.transect.."] <- "vert_tx_num"# rename column
-#Mus14 <- merge(Mus2, Sinfo[,c(1:5,10,18)], by=c("Region","SiteID", "Site", "Sampling.Date",
-#                                             "vert_tx_num"), all=TRUE)
-#head(Mus14)
-# Cleaning
-#MYMD <- strsplit(as.character(Mus14$Sampling.Date), split="/") # split the Sample_Date column to extract year
-#Mus14$Sample_Year <- sapply(MYMD, function(x) x[3]) # create Sample Year column
 
-#Mus14_PWS <- Mus14 %>%
-#             rename(Size_mm=size, AreaSampled_m2=area.of.quad..m2.)  %>%
-#             filter(Region =="PWS") %>% 
-#             mutate(Site_Name = ifelse((Site=="Galena"),'Galena Bay',
- #                               ifelse((Site=="Fidalgo"),'Port Fidalgo',
-#                                ifelse((Site=="Olsen"),'Olsen Bay',
-#                                ifelse((Site=="Simpson"),'Simpson Bay',
-#                                ifelse((Site=="Observation"),'Observation Island',
-#                                ifelse((Site=="Hogan"),'Hogan Bay',
-#                                ifelse((Site=="Iktua"),'Iktua Bay',
-#                                ifelse((Site=="Whale"),'Whale Bay',
-#                                ifelse((Site=="Johnson"),'Johnson Bay',
-#                                ifelse((Site=="Herring"),'Herring Bay',""))))))))))
-#                    ) %>%
-#            
-#head(Mus14_PWS)
-
-
-
-#write.csv(Mus, "C:/Users/rblake/Desktop/Mus.csv")
+#write.csv(Mus_PWS, "C:/Users/rblake/Desktop/Mus_PWS.csv", row.names=F)
 ###############################
 # Limpets - Abundance
 URL_Ld <- "https://workspace.aoos.org/published/file/5204fccde4b067e4402e6d00/Rocky_Limpet_Density_RawData_2010thru_2012_29Jul2013.csv"
