@@ -763,7 +763,36 @@ wm_IA_PWS1 <- filter(IA_PWS, Species_Name=="unidentified worm")   # Filter out t
 wm_IA_PWS <- PerCovCalc(wm_IA_PWS1, "unid_worm_Mn_Per_Cov") ; wm_IA_PWS  # call the function
 #####
 
-###########
+###########################################
+# Temperature
+IkT <- read.csv('Iktua_TempData.csv',header=T) 
+head(IkT)
+str(IkT)
+
+# rename Temperature column
+names(IkT)[names(IkT)=="Temp_.deg_C."] <- "Temp_deg_C"
+
+# Split off hours into a column
+Tm <- strsplit(as.character(IkT$Date.Time..GMT.08.00), split=" ") # split the column to extract 
+Tm2<- sapply(Tm, function(x) x[2]) # create column
+IkT_Tm <- strsplit(as.character(Tm2), split=":") # split the column to extract 
+IkT$Sample_Hour_8GMT <- sapply(IkT_Tm, function(x) x[1]) # create column
+
+# Split off Years and Months into columns
+MnDyYr <- sapply(Tm, function(x) x[1]) # split the column 
+MnDyYr2 <- strsplit(as.character(MnDyYr), split="/")
+IkT$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year column
+IkT$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
+
+# Summarize data
+Temp_PWS <- IkT %>% 
+            group_by(Sample_Year) %>%
+            summarise(Temp_Mean_C=mean(Temp_deg_C),Temp_Max_C=max(Temp_deg_C),
+                      Temp_Min_C=min(Temp_deg_C),Temp_Var_C=var(Temp_deg_C)) %>%
+            ungroup()
+head(Temp_PWS)
+
+###############################################
 # for loop to add columns to blank datasheet
 varnames <- list(Mus_PWS_s,Mus_PWS_a,Limd_PWS_a,Lims_PWS,Wlk_PWS,SS_PWS,OyC_PWS,ElG,BS_IA_PWS,
                  a_IA_PWS,b_IA_PWS,ba_IA_PWS,bz_IA_PWS,cn_IA_PWS,cm_IA_PWS,ca_IA_PWS,er_IA_PWS,
@@ -779,7 +808,7 @@ varnames <- list(Mus_PWS_s,Mus_PWS_a,Limd_PWS_a,Lims_PWS,Wlk_PWS,SS_PWS,OyC_PWS,
                  Pet_IA_PWS,Phy_IA_PWS,Ple_IA_PWS,Plp_IA_PWS,Pm_IA_PWS,Pte_IA_PWS,Pts_IA_PWS,
                  Rlf_IA_PWS,Rho_IA_PWS,Sacc_IA_PWS,Sor_IA_PWS,spi_IA_PWS,Sto_IA_PWS,Ulo_IA_PWS,
                  Ulv_IA_PWS,Urt_IA_PWS,ua_IA_PWS,uba_IA_PWS,ufra_IA_PWS,uga_IA_PWS,uh_IA_PWS,
-                 sp_IA_PWS,tun_IA_PWS,wm_IA_PWS)
+                 sp_IA_PWS,tun_IA_PWS,wm_IA_PWS,Temp_PWS)
 
 blnk_full<-blnk # must initialzie the final blank dataframe first
 ###
@@ -790,7 +819,13 @@ for(i in 1:length(varnames)){
 ###
 blnk_full[1:35,]
 #write.csv(blnk_full, "C:/Users/rblake/Desktop/blnk_full.csv", row.names=F)
-##########
+#############################################
+
+
+
+
+
+
 
 ##########################################
 # Substrate
