@@ -830,11 +830,15 @@ STE <- read.csv('tbl_LOCATION.csv',header=T) ## Sample info
 head(STE) ; str(STE)
 
 SOT <- filter(DAT, Common.Name =="Sea Otter")   # select otter observations
-SOTT <- merge(DAT2,STE, by=c("Master.Key"))  # add in the sample info
+
+SOTT <- SOT %>%
+        merge(STE, by=c("Master.Key"))  %>%   # add in the sample info
+        rename(Sample_Year=Year) %>%         # rename column
+        filter(Sample_Year %in% c(2010,2011,2012,2013,2014))   #  select years of interest
 head(SOTT)
 
 
-
+#write.csv(SOTT, "C:/Users/rblake/Desktop/SOTT.csv", row.names=F)
 
 
 
