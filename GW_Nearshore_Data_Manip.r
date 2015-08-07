@@ -15,7 +15,7 @@ str(blnk)
 PWS_Sites <- unique(blnk$Site_Name)
 PWS_Sites_Codes <- unique(blnk[,2:3]) ; names(PWS_Sites_Codes)[names(PWS_Sites_Codes)=="SiteID"] <- "Site_Code"
 
-
+# load necessary packages
 library(httr)
 library(tidyr)
 library(plyr)
@@ -810,7 +810,7 @@ varnames <- list(Mus_PWS_s,Mus_PWS_a,Limd_PWS_a,Lims_PWS,Wlk_PWS,SS_PWS,OyC_PWS,
                  Ulv_IA_PWS,Urt_IA_PWS,ua_IA_PWS,uba_IA_PWS,ufra_IA_PWS,uga_IA_PWS,uh_IA_PWS,
                  sp_IA_PWS,tun_IA_PWS,wm_IA_PWS,Temp_PWS)
 
-blnk_full<-blnk # must initialzie the final blank dataframe first
+blnk_full<-blnk # must initialize the final blank dataframe first
 ###
 for(i in 1:length(varnames)){ 
     df <- varnames[i]
@@ -820,7 +820,18 @@ for(i in 1:length(varnames)){
 blnk_full[1:35,]
 #write.csv(blnk_full, "C:/Users/rblake/Desktop/blnk_full.csv", row.names=F)
 #############################################
+# Sea Otters
+setwd("C:/Users/rblake/Documents/NCEAS/nppsd")
 
+DAT <- read.csv('tbl_DATA_OBS.csv',header=T) ##  Observations
+head(DAT) ; str(DAT)
+
+STE <- read.csv('tbl_LOCATION.csv',header=T) ## Sample info
+head(STE) ; str(STE)
+
+SOT <- filter(DAT, Common.Name =="Sea Otter")   # select otter observations
+SOTT <- merge(DAT2,STE, by=c("Master.Key"))  # add in the sample info
+head(SOTT)
 
 
 
