@@ -784,9 +784,12 @@ MnDyYr2 <- strsplit(as.character(MnDyYr), split="/")
 IkT$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year column
 IkT$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
 
+# Add Site_Name column
+IkT$Site_Name <- "Iktua Bay"
+
 # Summarize data
 Temp_PWS <- IkT %>% 
-            group_by(Sample_Year) %>%
+            group_by(Site_Name, Sample_Year) %>%
             summarise(Temp_Mean_C=mean(Temp_deg_C),Temp_Max_C=max(Temp_deg_C),
                       Temp_Min_C=min(Temp_deg_C),Temp_Var_C=var(Temp_deg_C)) %>%
             ungroup()
@@ -837,9 +840,23 @@ SOTT <- SOT %>%
         filter(Sample_Year %in% c(2010,2011,2012,2013,2014))   #  select years of interest
 head(SOTT)
 
-
 #write.csv(SOTT, "C:/Users/rblake/Desktop/SOTT.csv", row.names=F)
 
+# from ArcMap, MasterKeys for sea otter observation in PWS 2010-2012 within 24 km of Gulf Watch sites
+# 24 km was chosen based on foraging range in this doc: 
+#                    http://www.fws.gov/alaska/fisheries/mmm/stock/Revised_April_2014_Southcentral_Alaska_Sea_Otter_SAR.pdf
+
+Ott_list <- c("1052012-05-07 16:59:17",
+              "732010-09-18 12:40:28",
+              "732010-09-18 14:01:42",
+              "732010-09-18 14:11:24",
+              "732010-09-18 14:20:46",
+              "732010-09-18 14:29:48",
+              "732010-09-18 14:29:48",
+              "732010-09-18 14:38:32")
+
+SOTT_24km <- filter(SOTT, Master.Key %in% Ott_list)
+SOTT_24km
 
 
 ##########################################
