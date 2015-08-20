@@ -764,31 +764,54 @@ wm_IA_PWS <- PerCovCalc(wm_IA_PWS1, "unid_worm_Mn_Per_Cov") ; wm_IA_PWS  # call 
 #####
 
 ###########################################
-# Temperature
-IkT <- read.csv('Iktua_TempData.csv',header=T) 
-head(IkT)
-str(IkT)
+# Temperature (NOTE: These data are not yet QAQC'd, and are downloaded from the Gulf Watch Workspace)
+setwd("C:/Users/rblake/Documents/NCEAS/GoA Dynamics WG/GW_Nearshore Intertidal Data/Temp Data")
 
-# rename Temperature column
-names(IkT)[names(IkT)=="Temp_.deg_C."] <- "Temp_deg_C"
+IkT <- read.csv('Iktua_TempData.csv',header=T) ; head(IkT) ; str(IkT)
+CdT <- read.csv('Cedar_temp_2012thru_ 2013_28Jan2014.csv') ; head(CdT)
+HrT <- read.csv('Herring_temp_ 2010thru_2013_28Jan014.csv') ; head(HrT)
+HoT <- read.csv('Hogan_temp_ 2010thru_2013_28Jan2014.csv') ; head(HoT)
+JnT <- read.csv('Johnson_temp_2010thru_2013_27Jan2014.csv') ; head(JnT)
+PyT <- read.csv('Perry_temp_2012thru_2013_27Jan2014.csv') ; head(PyT)
+WhT <- read.csv('Whale_temp_2010thru_2013_27Jan2014.csv') ; head(PyT)
+
+# Add a Site Name column
+IkT$Site_Name <- "Iktua Bay"
+CdT$Site_Name <- "Cedar Bay"
+HrT$Site_Name <- "Herring Bay"
+HoT$Site_Name <- "Hogan Bay"
+JnT$Site_Name <- "Johnson Bay"
+PyT$Site_Name <- "Perry Island"
+WhT$Site_Name <- "Whale Bay"
+
+# make Time/Date columns all named the same
+names(CdT)[names(CdT)=="Time..GMT.08.00"] <- "Date.Time..GMT.08.00"
+names(PyT)[names(PyT)=="Time..GMT.08.00"] <- "Date.Time..GMT.08.00"
+names(WhT)[names(WhT)=="Time..GMT.08.00"] <- "Date.Time..GMT.08.00"
+
+head(CdT) ; head(PyT) ; head(WhT)
+
+# merge all the seperate files into one
+dfs <- list(IkT,CdT,HrT,HoT,JnT,PyT,WhT)
+Temps <- do.call("rbind", dfs)
+
+# rename Temp column
+names(Temps)[names(Temps)=="Temp_.deg_C."] <- "Temp_deg_C"
 
 # Split off hours into a column
-Tm <- strsplit(as.character(IkT$Date.Time..GMT.08.00), split=" ") # split the column to extract 
+Tm <- strsplit(as.character(Temps$Date.Time..GMT.08.00), split=" ") # split the column to extract 
 Tm2<- sapply(Tm, function(x) x[2]) # create column
-IkT_Tm <- strsplit(as.character(Tm2), split=":") # split the column to extract 
-IkT$Sample_Hour_8GMT <- sapply(IkT_Tm, function(x) x[1]) # create column
+T_Tm <- strsplit(as.character(Tm2), split=":") # split the column to extract 
+Temps$Sample_Hour_8GMT <- sapply(T_Tm, function(x) x[1]) # create column
 
 # Split off Years and Months into columns
 MnDyYr <- sapply(Tm, function(x) x[1]) # split the column 
 MnDyYr2 <- strsplit(as.character(MnDyYr), split="/")
-IkT$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year column
-IkT$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
-
-# Add Site_Name column
-IkT$Site_Name <- "Iktua Bay"
+Temps$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year column
+Temps$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
 
 # Summarize data
-Temp_PWS <- IkT %>% 
+Temp_PWS <- Temps %>% 
             group_by(Site_Name, Sample_Year) %>%
             summarise(Temp_Mean_C=mean(Temp_deg_C),Temp_Max_C=max(Temp_deg_C),
                       Temp_Min_C=min(Temp_deg_C),Temp_Var_C=var(Temp_deg_C)) %>%
@@ -823,7 +846,7 @@ for(i in 1:length(varnames)){
 blnk_full[1:35,]
 #write.csv(blnk_full, "C:/Users/rblake/Desktop/blnk_full.csv", row.names=F)
 #############################################
-# Sea Otters
+# Sea Otters  (from the North Pacific Seabird Database)
 setwd("C:/Users/rblake/Documents/NCEAS/nppsd")
 
 DAT <- read.csv('tbl_DATA_OBS.csv',header=T) ##  Observations
