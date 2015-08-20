@@ -845,7 +845,13 @@ for(i in 1:length(varnames)){
 ###
 blnk_full[1:35,]
 #write.csv(blnk_full, "C:/Users/rblake/Desktop/blnk_full.csv", row.names=F)
-#############################################
+
+
+
+
+
+
+###############################################
 # Sea Otters  (from the North Pacific Seabird Database)
 setwd("C:/Users/rblake/Documents/NCEAS/nppsd")
 
