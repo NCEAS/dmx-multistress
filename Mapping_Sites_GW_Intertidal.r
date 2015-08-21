@@ -31,7 +31,6 @@ Locs2 <- sti2 %>%
     mutate(lon=Long.) %>%
     select(lat,lon,Site)
 
-
 ### Plotting ###
 library(rworldmap)
 library(rworldxtra)

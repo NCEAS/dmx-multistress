@@ -800,9 +800,10 @@ names(Temps)[names(Temps)=="Temp_.deg_C."] <- "Temp_deg_C"
 
 # Split off hours into a column
 Tm <- strsplit(as.character(Temps$Date.Time..GMT.08.00), split=" ") # split the column to extract 
-Tm2<- sapply(Tm, function(x) x[2]) # create column
+Tm2<- sapply(Tm, function(x) x[2]) # split the column 
 T_Tm <- strsplit(as.character(Tm2), split=":") # split the column to extract 
-Temps$Sample_Hour_8GMT <- sapply(T_Tm, function(x) x[1]) # create column
+Temps$Sample_Hour_8GMT <- sapply(T_Tm, function(x) x[1]) # create Sample Hour column
+Temps$Sample_Minute <- sapply(T_Tm, function(x) x[2]) # create Sample Minute column
 
 # Split off Years and Months into columns
 MnDyYr <- sapply(Tm, function(x) x[1]) # split the column 
@@ -810,11 +811,20 @@ MnDyYr2 <- strsplit(as.character(MnDyYr), split="/")
 Temps$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year column
 Temps$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
 
+### GETTING THE TIDE DATA TO DETERMINE WATER TEMPS VS. AIR TEMPS
+
+
+
+#################################################
+######### MUST SEPERATE OUT THE AIR TEMPS FROM THE 
+########### WATER TEMPS USING TIDAL DATA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+##################################################
+
 # Summarize data
 Temp_PWS <- Temps %>% 
             group_by(Site_Name, Sample_Year) %>%
-            summarise(Temp_Mean_C=mean(Temp_deg_C),Temp_Max_C=max(Temp_deg_C),
-                      Temp_Min_C=min(Temp_deg_C),Temp_Var_C=var(Temp_deg_C)) %>%
+            summarise(WTemp_Mean_C=mean(Temp_deg_C),WTemp_Max_C=max(Temp_deg_C),
+                      WTemp_Min_C=min(Temp_deg_C),WTemp_Var_C=var(Temp_deg_C)) %>%
             ungroup()
 head(Temp_PWS)
 
