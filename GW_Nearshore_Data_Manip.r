@@ -773,7 +773,7 @@ HrT <- read.csv('Herring_temp_ 2010thru_2013_28Jan014.csv') ; head(HrT)
 HoT <- read.csv('Hogan_temp_ 2010thru_2013_28Jan2014.csv') ; head(HoT)
 JnT <- read.csv('Johnson_temp_2010thru_2013_27Jan2014.csv') ; head(JnT)
 PyT <- read.csv('Perry_temp_2012thru_2013_27Jan2014.csv') ; head(PyT)
-WhT <- read.csv('Whale_temp_2010thru_2013_27Jan2014.csv') ; head(PyT)
+WhT <- read.csv('Whale_temp_2010thru_2013_27Jan2014.csv') ; head(WhT)
 
 # Add a Site Name column
 IkT$Site_Name <- "Iktua Bay"
@@ -812,6 +812,60 @@ Temps$Sample_Year <- sapply(MnDyYr2, function(x) x[3]) # create Sample Year colu
 Temps$Sample_Month <- sapply(MnDyYr2, function(x) x[1]) # create Sample Month column
 
 ### GETTING THE TIDE DATA TO DETERMINE WATER TEMPS VS. AIR TEMPS
+### All tide data comes from Tbone Tides : http://tbone.biol.sc.edu/tide/sites_othernorth.html
+setwd("C:/Users/rblake/Documents/NCEAS/GoA Dynamics WG/GW_Nearshore Intertidal Data/Tide Data")
+
+Gug <- read.csv('Guguak_Tide Station.csv',header=T) ; head(Gug) ; str(Gug)
+Jck <- read.csv('Jackson Cove_Tide Station.csv',header=T) ; head(Jck)
+Herr <- read.csv('Herring Point_Tide Station.csv',header=T) ; head(Herr)
+Sng <- read.csv('Snug Harbor_Tide Station.csv',header=T) ; head(Sng)
+Per <- read.csv('Perry Island_Tide Station.csv',header=T) ; head(Per)
+Chn <- read.csv('Chenega Island_Tide Station.csv',header=T) ; head(Chn)
+
+
+
+####################################
+############
+##########
+##  AHHHHHHHHHHHH!  need to find a way to make Herring Point tide station be for two sample stations!!
+##################################
+
+
+
+
+
+
+
+
+
+
+# merge all the seperate files into one
+tddfs <- list(Gug,Jck,Herr,Sng,Per,Chn)
+Tide <- do.call("rbind", tddfs) ; head(Tide)
+
+# Deal with the dates
+Dt <- strsplit(as.character(Tide$Date), split="/") 
+Tide$Sample_Year <- sapply(Dt, function(x) x[3])
+Tide$Sample_Month <- sapply(Dt, function(x) x[1])
+
+# Deal with time
+tt <- strsplit(as.character(Tide$Time), split=":")
+Tide$Sample_Hour <- sapply(tt, function(x) x[1])
+Tide$Sample_Minute <- sapply(tt, function(x) x[2])
+
+# Cleaning
+Tides <- Tide %>%
+         filter(!Tide$Tidal_Hgt %in% c("First","Full","Last","Moonrise","Moonset","New",
+                                       "Sunrise","Sunset")) %>%  # remove rows with sun/moon rise/set
+         mutate(Site_Name = ifelse((Tide_Station %in% Guguak),'Iktua Bay',
+                              ifelse((Tide_Station %in% barnacle),'barnacle',
+                              ifelse((Tide_Station %in% Herring_Point),'brown_alga',
+                              ifelse((Tide_Station %in% Snug_Harbor),'Hogan Bay',
+                              ifelse((Tide_Station %in% Perry_Island),'Perry Island',
+                              ifelse((Tide_Station %in% Chenega),'Whale Bay',""))))))
+                 )
+   
+ 
 
 
 
