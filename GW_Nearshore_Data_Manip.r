@@ -818,29 +818,13 @@ setwd("C:/Users/rblake/Documents/NCEAS/GoA Dynamics WG/GW_Nearshore Intertidal D
 Gug <- read.csv('Guguak_Tide Station.csv',header=T) ; head(Gug) ; str(Gug)
 Jck <- read.csv('Jackson Cove_Tide Station.csv',header=T) ; head(Jck)
 Herr <- read.csv('Herring Point_Tide Station.csv',header=T) ; head(Herr)
+Aud <- read.csv('Port Audrey_Tide Station.csv',header=T) ; head(Aud)
 Sng <- read.csv('Snug Harbor_Tide Station.csv',header=T) ; head(Sng)
 Per <- read.csv('Perry Island_Tide Station.csv',header=T) ; head(Per)
 Chn <- read.csv('Chenega Island_Tide Station.csv',header=T) ; head(Chn)
 
-
-
-####################################
-############
-##########
-##  AHHHHHHHHHHHH!  need to find a way to make Herring Point tide station be for two sample stations!!
-##################################
-
-
-
-
-
-
-
-
-
-
 # merge all the seperate files into one
-tddfs <- list(Gug,Jck,Herr,Sng,Per,Chn)
+tddfs <- list(Gug,Jck,Herr,Aud,Sng,Per,Chn)
 Tide <- do.call("rbind", tddfs) ; head(Tide)
 
 # Deal with the dates
@@ -857,15 +841,30 @@ Tide$Sample_Minute <- sapply(tt, function(x) x[2])
 Tides <- Tide %>%
          filter(!Tide$Tidal_Hgt %in% c("First","Full","Last","Moonrise","Moonset","New",
                                        "Sunrise","Sunset")) %>%  # remove rows with sun/moon rise/set
-         mutate(Site_Name = ifelse((Tide_Station %in% Guguak),'Iktua Bay',
-                              ifelse((Tide_Station %in% barnacle),'barnacle',
-                              ifelse((Tide_Station %in% Herring_Point),'brown_alga',
-                              ifelse((Tide_Station %in% Snug_Harbor),'Hogan Bay',
-                              ifelse((Tide_Station %in% Perry_Island),'Perry Island',
-                              ifelse((Tide_Station %in% Chenega),'Whale Bay',""))))))
+         mutate(Site_Name = ifelse((Tide_Station %in% "Guguak"),'Iktua Bay',
+                            ifelse((Tide_Station %in% "Jackson_Cove"),'Cedar Bay',  
+                            ifelse((Tide_Station %in% "Herring_Point"),'Herring Bay',
+                            ifelse((Tide_Station %in% "Snug_Harbor"),'Hogan Bay',
+                            ifelse((Tide_Station %in% "Port_Audrey"),'Johnson Bay',
+                            ifelse((Tide_Station %in% "Perry_Island"),'Perry Island',
+                            ifelse((Tide_Station %in% "Chenega_Island"),'Whale Bay',"")))))))
                  )
-   
- 
+#####  
+##### Now have to match up the tide data with the temp data to determine water and air temps
+head(Temps) ; head(Tides)
+
+
+
+
+Ik2 <- Temps[Temps$Site_Name == "Iktua Bay",]
+
+qplot(data=Ik2[1:75,], x=Date.Time..GMT.08.00, y=Temp_deg_C)
+
+
+
+
+
+
 
 
 
