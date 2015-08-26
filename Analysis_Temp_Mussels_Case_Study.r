@@ -5,7 +5,7 @@
 # Selecting Temperature and Mussel columns from output of GW_Nearshore_Data_Manip script
 TMuss <- blnk_full %>%
          select(Site_Name,Sample_Year,Region,SiteID,Longitude,Latitude,Mus_Mn_n_m2,Mus_Mn_Size_mm,
-                mussel_Mn_Per_Cov,WTemp_Mean_C,WTemp_Max_C,WTemp_Min_C,WTemp_Var_C) %>%
+                Mus_IA_PWS,WTemp_Mean_C,WTemp_Max_C,WTemp_Min_C,WTemp_Var_C) %>%
          filter(WTemp_Mean_C != "NA")
 names(TMuss)    
 #######################################

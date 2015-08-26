@@ -847,20 +847,34 @@ Tides <- Tide %>%
                             ifelse((Tide_Station %in% "Snug_Harbor"),'Hogan Bay',
                             ifelse((Tide_Station %in% "Port_Audrey"),'Johnson Bay',
                             ifelse((Tide_Station %in% "Perry_Island"),'Perry Island',
-                            ifelse((Tide_Station %in% "Chenega_Island"),'Whale Bay',"")))))))
+                            ifelse((Tide_Station %in% "Chenega_Island"),'Whale Bay',""))))))),
+                Date_Time = paste(Date, Time, sep=" ")
                  )
+##
+head(Temps) ; head(Tides)
+
+# plot temps with tides
+Ik2 <- Temps[Temps$Site_Name == "Iktua Bay",]
+IkT2 <- Tides[Tides$Site_Name == "Iktua Bay",]
+
+library(ggplot2) ; library(reshape2); library(grid); library(plyr); library(proto)
+
+TT <- ggplot() +  #theme_boxplot() + 
+             geom_point(data=Ik2[1:75,], aes(x=as.factor(Date.Time..GMT.08.00), y=Temp_deg_C)) +
+             geom_point(data=IkT2[1:4,],aes(x=as.factor(Date_Time), y=as.numeric(as.character(Tidal_Hgt))))
+
+ 
+  
+  
+Td <- ggplot() + 
+             geom_point(data=IkT2,aes(x=as.factor(Date_Time), y=as.numeric(as.character(Tidal_Hgt))))
+ 
+  
+  
+
 #####  
 ##### Now have to match up the tide data with the temp data to determine water and air temps
 head(Temps) ; head(Tides)
-
-
-
-
-Ik2 <- Temps[Temps$Site_Name == "Iktua Bay",]
-
-qplot(data=Ik2[1:75,], x=Date.Time..GMT.08.00, y=Temp_deg_C)
-
-
 
 
 
