@@ -856,6 +856,8 @@ head(Temps) ; head(Tides)
 # plot temps with tides
 Ik2 <- Temps[Temps$Site_Name == "Iktua Bay",]
 IkT2 <- Tides[Tides$Site_Name == "Iktua Bay",]
+IkT2H <- IkT2[IkT2$Tide_which == "High",]
+IkT2L <- IkT2[IkT2$Tide_which == "Low",]
 
 library(ggplot2) ; library(reshape2); library(grid); library(plyr); library(proto)
 
@@ -868,8 +870,17 @@ TT <- ggplot() +  #theme_boxplot() +
   
 Td <- ggplot() + 
              geom_point(data=IkT2,aes(x=as.factor(Date_Time), y=as.numeric(as.character(Tidal_Hgt))))
- 
+Td 
+
   
+TdH <- ggplot() + 
+             geom_point(data=IkT2H,aes(x=as.factor(Date_Time), y=as.numeric(as.character(Tidal_Hgt))))
+TdH 
+
+  
+TdL <- ggplot() + 
+             geom_point(data=IkT2L,aes(x=as.factor(Date_Time), y=as.numeric(as.character(Tidal_Hgt))))
+TdL 
   
 
 #####  
@@ -878,7 +889,11 @@ head(Temps) ; head(Tides)
 
 
 
-
+#### Ultimately, need to add a column specifying whether a measured temperature is water or air 
+Temps <- Temps %>%
+              mutate(Temp_What_Meas = ifelse((????? %in% "???"),'Water',
+                                      ifelse((????? %in% "???"),'Air', "" ))
+                     )
 
 
 
