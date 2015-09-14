@@ -859,7 +859,7 @@ IkT2 <- Tides[Tides$Site_Name == "Iktua Bay",]
 IkT2H <- IkT2[IkT2$Tide_which == "High",]
 IkT2L <- IkT2[IkT2$Tide_which == "Low",]
 
-library(ggplot2) ; library(reshape2); library(grid); library(plyr); library(proto)
+library(ggplot2) ; library(reshape2); library(grid); library(plyr); library(proto); library(scales)
 
 TT <- ggplot() +  #theme_boxplot() + 
              geom_point(data=Ik2[1:75,], aes(x=as.factor(Date.Time..GMT.08.00), y=Temp_deg_C)) +
