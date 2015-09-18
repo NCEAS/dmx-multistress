@@ -768,6 +768,20 @@ wm_IA_PWS <- PerCovCalc(wm_IA_PWS1, "unid_worm_Mn_Per_Cov") ; wm_IA_PWS  # call 
 
 ###########################################
 # Temperature (NOTE: These data are not yet QAQC'd, and are downloaded from the Gulf Watch Workspace)
+
+# Dan will generate files of derived data with his SAS code (we will post his SAS code and his derived data set)
+
+#################
+### NOTE: Need to make everything in the same time format.  UTC?  or local...choose one and be consistent
+# Think about doing interpolations of the temperature data 
+# Download tide data at 10 or 20 min intervals
+# Dan used 2m as "if tide is higher than 2m, it is water temperature" - Loggers were approx. 0.5m, but it varied some.
+# Low Temps 0C and -4C (air and water) as thresholds
+# Dan used 20C as high temp threshold, but without much real reason
+#################
+
+
+
 setwd("C:/Users/rblake/Documents/NCEAS/GoA Dynamics WG/GW_Nearshore Intertidal Data/Temp Data")
 
 IkT <- read.csv('Iktua_TempData.csv',header=T) ; head(IkT) ; str(IkT)
@@ -855,6 +869,7 @@ Tides <- Tide %>%
                  )
 ##
 head(Temps) ; head(Tides)
+
 
 # plot temps with tides
 Ik2 <- Temps[Temps$Site_Name == "Iktua Bay",]
