@@ -21,6 +21,9 @@ library(tidyr)
 library(plyr)
 library(dplyr)
 
+########### NOTE: add global date 
+
+
 ###################################
 # Get data from Gulf Watch portal #
 ###################################
@@ -154,7 +157,7 @@ head(Lims)
 Lims_PWS <- Lims %>%
             filter(Site_Name %in% PWS_Sites) %>%  # extract PWS samples
             group_by(Site_Name, Sample_Year) %>%
-            summarise(Limp_MnSize_m2=mean(Limpet_Size_mm)) %>% # averaging per site per year
+            summarise(Limp_MnSize_mm=mean(Limpet_Size_mm)) %>% # averaging per site per year
             ungroup() %>%
             filter(Sample_Year != 2007)  %>% # taking out year 2007 right now
             arrange(Site_Name, Sample_Year)
